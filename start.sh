@@ -166,27 +166,27 @@ runlevels="
 
 BYE="
 
-                        .-:::-.
-                       / .===. \
-                       \/ 6 6 \/
-                       ( \___/ )
-         __________ooo__\_____/_______________
-        /              Bye $USER              \
-       |                                       |
-       | Me: Will You Follow My Accounts?      |
-       | $USER: No way!                        |
-       | Me: sudo Will You Follow My Accounts? |
-       | $USER: Yes..yes..yes! Let's go!       |
-        \______________________ooo____________/
-                       |  |  |
-                       |_ | _|
-                       |  |  |
-                       |__|__|
-                       /-'Y'-\
-                      (__/ \__)
+                    .-:::-.
+                   / .===. \
+                   \/ 6 6 \/
+                   ( \___/ )
+     __________ooo__\_____/_______________
+    /              Bye $USER              \
+   |                                       |
+   | Me: Will You Follow My Accounts?      |
+   | $USER: No way!                        |
+   | Me: sudo Will You Follow My Accounts? |
+   | $USER: Yes..yes..yes! Let's go!       |
+    \______________________ooo____________/
+                   |  |  |
+                   |_ | _|
+                   |  |  |
+                   |__|__|
+                   /-'Y'-\
+                  (__/ \__)
 
-                    Github: @Mr6MJT
-                Instagram: @__mahdi.jaber__
+                Github: @Mr6MJT
+            Instagram: @__mahdi.jaber__
 "
 printf "$help"
 
