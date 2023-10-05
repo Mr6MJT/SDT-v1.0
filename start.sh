@@ -1,4 +1,4 @@
-sudo su
+
 clear
 black="\033[0;30m"        # Black
 red="\033[0;9[1]m"          # Red
@@ -173,31 +173,31 @@ do
     printf "$GREEN "
     case $command in
         1)
-            free
+            sudo free
             ;;
         2)
-            iostat
+            sudo iostat
             ;;
         3)
-            ps aux
+            sudo ps aux
             ;;
         4)
-            top
+            sudo top
             ;;
         5)
-            jobs
+            sudo jobs
             ;;
         6)
             printf "$GREEN Please Enter The Number Of The Job That You Want To Run It In The BG: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read jobbg
-            bg %$jobbg
+            sudo bg %$jobbg
             ;;
         7)
             printf "$GREEN Please Enter The Number Of The Job That You Want To Run It In The FG: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read jobfg
-            bg %$jobfg
+            sudo bg %$jobfg
             ;;
         8)
             printf "$GREEN Please Enter The Nice Number (-19 -> 20): \n"
@@ -207,7 +207,7 @@ do
             printf "$GREEN Please Enter The Command Or The File You Want To Execute (Make Sure You Have Permission To Execute The File If You Want): \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "      
             read command
-            nice -$nicenumber $command 
+            sudo nice -$nicenumber $command 
             ;;
         9)
             printf "$GREEN Please Enter The Nice Number (-19 -> 20): \n"
@@ -217,7 +217,7 @@ do
             printf "$GREEN Please Enter The ProcessID Of The Process: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "      
             read pid
-            renice -n $nicenumber $pid         
+            sudo renice -n $nicenumber $pid         
             ;;
         10)
             printf "$GREEN [1]: MD5         [2]: SHA256 \n"
@@ -229,10 +229,10 @@ do
             read filename
             if [ $hashtype == 1] 
             then
-                md5sum $filename
+                sudo md5sum $filename
             elif [ $hashtype == 2]
             then    
-                sha256sum $filename
+                sudo sha256sum $filename
             else
                 printf "$GREEN Error.. \n"
             fi
@@ -241,13 +241,13 @@ do
             printf "$GREEN Please Enter Command: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read command
-            whereis $command
+            sudo whereis $command
             ;;
         12)
             printf "$GREEN Please Enter Command: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read command
-            busybox $command
+            sudo busybox $command
             ;;
         13)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
@@ -257,7 +257,7 @@ do
             printf "$GREEN Please Enter Symbolic Link File Name: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read symblinkfilename
-            ln -s $filename $symblinkfilename
+            sudo ln -s $filename $symblinkfilename
             ;;
         14)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
@@ -267,7 +267,7 @@ do
             printf "$GREEN Please Enter Hard Link File Name: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read hardlinkfilename
-            ln $filename $hardlinkfilename
+            sudo ln $filename $hardlinkfilename
             ;;
         15)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
@@ -277,7 +277,7 @@ do
             printf "$GREEN Please Enter New User Name: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read username
-            chown $username $filename                        
+            sudo chown $username $filename                        
             ;;
         16)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
@@ -287,14 +287,14 @@ do
             printf "$GREEN Please Enter New Group Name: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read groupname
-            chown :$groupname $filename  
+            sudo chown :$groupname $filename  
             ;;
         17)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read filename
             printf "\n"
-            getfacl $filename
+            sudo getfacl $filename
             ;;
         18)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
@@ -309,7 +309,7 @@ do
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read permissions
             printf "\n"
-            setfacl -m u:$username:$permissions $filename 
+            sudo setfacl -m u:$username:$permissions $filename 
             ;;
         19)
             printf "$GREEN Please Enter File Name (Make Sure To Write The Path Correct): \n"
@@ -320,7 +320,7 @@ do
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read username
             printf "\n"
-            setfacl -x u:$username $filename 
+            sudo setfacl -x u:$username $filename 
             ;;
         20)
             who -r
@@ -331,29 +331,29 @@ do
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read runlevel
             printf "\n"
-            systemctl set-default $runlevel
+            sudo systemctl set-default $runlevel
             if [ "$runlevel" == "poweroff.target" ]
             then  
-                init 0
+                sudo init 0
             elif [ "$runlevel" == "rescue.target" ]
             then    
-                init 1
+                sudo init 1
             elif [ "$runlevel" == "multi-user.target" ]
             then    
-                init 3
+                sudo init 3
             elif [ "$runlevel" == "graphical.target" ]
             then
-                init 5
+                sudo init 5
             elif [ "$runlevel" == "reboot.target" ]
             then    
-                init 6
+                sudo init 6
             else 
             then
                 printf "Error.. \n"
             fi
             ;;
         22)
-            lsblk
+            sudo lsblk
             ;;
         23)
             printf "$GREEN Please Enter Storage Device Name (ex: /dev/sda): \n"
@@ -374,9 +374,9 @@ do
 
             if [ "$partable" != 0]
             then
-                parted $devname &&  mklabel $partable && mkpart primary $type $startp $endp
+                sudo parted $devname &&  mklabel $partable && mkpart primary $type $startp $endp
             else
-                parted $devname && mkpart primary $type $startp $endp  
+                sudo parted $devname && mkpart primary $type $startp $endp  
             fi                   
             ;;
         24)
@@ -389,34 +389,34 @@ do
 
             ;;
         25)
-            lspci
+            sudo lspci
             ;;
         26)
-            lsusb
+            sudo lsusb
             ;;
         27)
-            lsmod
+            sudo sudo lsmod
             ;;
         28)
             printf "$GREEN Please Enter Module Name: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
             read modname
-            rmmod $modname
+            sudo rmmod $modname
             ;;
         29)
             printf "$GREEN Please Enter FileName (Make Sure To Write The Path Correct, ex: /path/to/filename.ko): \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read filename
-            insmod $filename
+            sudo insmod $filename
             ;;
         30)
             printf "$GREEN Please Enter Storage Device Name (ex: /dev/sda): \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read devname
-            fsck $devname
+            sudo fsck $devname
             ;;
         U)
-            rm * && cd .. && rm -r SDT-v1.0 && git clone https://github.com/Mr6MJT/SDT-v1.0 
+            sudo rm * && cd .. && rm -r SDT-v1.0 && git clone https://github.com/Mr6MJT/SDT-v1.0 
             ;;
         D)
             printf "$GREEN GitHub    :  @Mr6MJT \n"
