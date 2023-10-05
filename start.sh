@@ -186,10 +186,10 @@ BYE="
                   (__/ \__)
 
                 Github: @Mr6MJT
-            Instagram: @__mahdi.jaber__
+           Instagram: @__mahdi.jaber__
 
 
-            
+
 "
 printf "$help"
 
