@@ -386,7 +386,8 @@ do
             printf "$GREEN Please Enter Partition Number: \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
             read partnum
-
+            sudo fdisk $devname | d $partnum 
+            w 
             ;;
         25)
             sudo lspci
