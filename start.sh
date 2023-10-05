@@ -348,7 +348,6 @@ do
             then    
                 sudo init 6
             else 
-            then
                 printf "Error.. \n"
             fi
             ;;
