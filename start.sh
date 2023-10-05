@@ -224,7 +224,7 @@ do
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read hashtype
             printf "\n"            
-            printf "$GREEN Please Enter FileName (Make Sure To Write The Path Correct, ex: ../file.txt): \n"
+            printf "$GREEN Please Enter FileName (Make Sure To Write The Path Correct, ex: /path/to/filename.txt): \n"
             printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
             read filename
             if [ $hashtype == 1] 
@@ -332,14 +332,61 @@ do
             read runlevel
             printf "\n"
             systemctl set-default $runlevel
-            init 
+            if [ "$runlevel" == "poweroff.target" ]
+            then  
+                init 0
+            elif [ "$runlevel" == "rescue.target" ]
+            then    
+                init 1
+            elif [ "$runlevel" == "multi-user.target" ]
+            then    
+                init 3
+            elif [ "$runlevel" == "graphical.target" ]
+            then
+                init 5
+            elif [ "$runlevel" == "reboot.target" ]
+            then    
+                init 6
+            else 
+            then
+                printf "Error.. \n"
+            fi
             ;;
         22)
             lsblk
             ;;
         23)
+            printf "$GREEN Please Enter Storage Device Name (ex: /dev/sda): \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read devname
+            printf "$GREEN Please Enter Partition Table Scheme You Want To Create (mbr or gpt) (If Already There Is Table Enter 0): \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read partable
+            printf "$GREEN Please Enter Partition Type: \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read type
+            printf "$GREEN Please Enter Start Point (ex: 1MiB Or 1GiB): \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read startp
+            printf "$GREEN Please Enter End Point: \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read endp
+
+            if [ "$partable" != 0]
+            then
+                parted $devname &&  mklabel $partable && mkpart primary $type $startp $endp
+            else
+                parted $devname && mkpart primary $type $startp $endp  
+            fi                   
             ;;
         24)
+            printf "$GREEN Please Enter Storage Device Name (ex: /dev/sda): \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read devname
+            printf "$GREEN Please Enter Partition Number: \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read partnum
+
             ;;
         25)
             lspci
@@ -348,15 +395,28 @@ do
             lsusb
             ;;
         27)
+            lsmod
             ;;
         28)
+            printf "$GREEN Please Enter Module Name: \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "            
+            read modname
+            rmmod $modname
             ;;
         29)
+            printf "$GREEN Please Enter FileName (Make Sure To Write The Path Correct, ex: /path/to/filename.ko): \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
+            read filename
+            insmod $filename
             ;;
         30)
+            printf "$GREEN Please Enter Storage Device Name (ex: /dev/sda): \n"
+            printf "$WHITE ─[$USER]─[$PWD] ─╼>$ "
+            read devname
+            fsck $devname
             ;;
         U)
-            rm * && cd .. && rm -r SDT-v1.0 && git clone https://github.com/Mr6MJT/SDT-v1.0
+            rm * && cd .. && rm -r SDT-v1.0 && git clone https://github.com/Mr6MJT/SDT-v1.0 
             ;;
         D)
             printf "$GREEN GitHub    :  @Mr6MJT \n"
@@ -372,6 +432,7 @@ do
             clear
             ;;
         *)
+            printf "Error, $command Not Found. \n"
             ;;
     esac
 done
